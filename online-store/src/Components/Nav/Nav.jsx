@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function Nav(){
     const classUnderline = "underline underline-offset-2";
     return (
-        <nav className="flex justify-between items-center top-0 fixed z-1 w-full py-1 px-5 text-sm font-light">
+        <nav className="flex justify-between items-center top-0 fixed z-1 w-full py-1 px-5 text-sm font-light bg-white">
             <ul className="flex items-center gap-3">
                 <li className="font-semibold text-lg">
                     <NavLink to="/">Shopi</NavLink>
