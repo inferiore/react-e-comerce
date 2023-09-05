@@ -1,4 +1,5 @@
-import {BrowserRouter, useRoutes} from "react-router-dom"
+import {BrowserRouter, useRoutes} from "react-router-dom";
+import { ProductsProvider, ProductsContext } from "../../Context/Context";
 import './App.css'
 import Home from "../Home/Home"
 import MyAccount from "../MyAccount/MyAccount";
@@ -22,12 +23,14 @@ const AppRoutes = ()=>{
 }
 
 function App() {
-
+  const string = "hola";
   return (
-    <BrowserRouter>        
+    <ProductsProvider>
+      <BrowserRouter>        
         <AppRoutes/>
-        <Nav/>
-    </BrowserRouter>
+          <Nav></Nav>
+      </BrowserRouter>
+    </ProductsProvider>
   )
 }
 
