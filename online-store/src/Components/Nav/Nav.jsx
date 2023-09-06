@@ -5,7 +5,7 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 function Nav(){
     const classUnderline = "underline underline-offset-2";
-    const {products} = useContext(ProductsContext);
+    const {products,openIsShoppingCartOpen} = useContext(ProductsContext);
     
     return (
         <nav className="flex justify-between items-center top-0 fixed z-1 w-full py-1 px-5 text-sm font-light bg-white">
@@ -60,7 +60,7 @@ function Nav(){
                     My Account
                 </NavLink></li>
                 <li>Sign In</li>
-                <li className="flex items-center"> 
+                <li className="flex items-center" onClick={()=>openIsShoppingCartOpen()}> 
                     <ShoppingCartIcon className="h-6 w-6 text-black-500"/>
                     {products.length}
                 </li>

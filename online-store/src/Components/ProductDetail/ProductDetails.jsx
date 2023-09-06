@@ -6,10 +6,7 @@ import { ProductsContext } from "../../Context/Context";
 
 function ProductDetails(){
     const {product, openIsDetailOpen, closeIsDetailOpen, isDetailOpen,nextProductImage
-        ,previousProductImage} = useContext(ProductsContext);
-
-    
-   
+        ,previousProductImage} = useContext(ProductsContext);   
     return (
         <aside className={ `${isDetailOpen ? `flex`:`hidden`}  product-detail flex flex-col fixed right-0 border border-black rounded-lg bg-white`}>
             <div className="flex justify-between items-center px-6 py-3">

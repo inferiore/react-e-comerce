@@ -8,6 +8,7 @@ import MyOrders from "../MyOrders/MyOrders";
 import NotFound from "../NotFound/NoFound";
 import SingIn from "../SignIn/SignIn";
 import Nav from "../../Components/Nav/Nav";
+import ShoppingCart from "../../Components/ShoppingCart/ShoppingCart";
 const AppRoutes = ()=>{
     
   let routes = useRoutes([
@@ -28,7 +29,8 @@ function App() {
     <ProductsProvider>
       <BrowserRouter>        
         <AppRoutes/>
-          <Nav></Nav>
+        <ShoppingCart></ShoppingCart>
+        <Nav></Nav>          
       </BrowserRouter>
     </ProductsProvider>
   )
