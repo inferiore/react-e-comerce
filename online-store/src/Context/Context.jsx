@@ -13,6 +13,9 @@ export const ProductsProvider = ({children})=>{
     //shopping cart
     const [isShoppingCartOpen,setShoppingCartOpen]   = useState(false);
     
+    //orders
+    const [orders, setOrders ] = useState([]);
+    
     const productIds = products.map(item =>(item.id));
     
     const  addProduct = ( product=>{
@@ -83,6 +86,8 @@ export const ProductsProvider = ({children})=>{
             ,isShoppingCartOpen
             ,productIds
             ,deleteProduct
+            ,orders
+            ,setOrders
             }}>
             {children}
         </ProductsContext.Provider>
