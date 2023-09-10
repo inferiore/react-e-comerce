@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
 
 
 export const ProductsContext =  React.createContext();
@@ -15,17 +15,89 @@ export const ProductsProvider = ({children})=>{
     
     //orders
     const [orders, setOrders ] = useState([]);
+    // API Products
+    const [productsList,setProductsList] =  useState([]); 
     
+    // API Products
+    const [filteredProductsList,setFilteredProductsList] =  useState([]); 
+    // Search Products by title 
+    const [searchProductByTitle,setSearchProductByTitle] =  useState(); 
+    
+    const [searchProductByCategory,setSearchProductByCategory] =  useState(); 
+    
+    useEffect(()=>{
+        fetch("https://api.escuelajs.co/api/v1/products")
+        .then(response =>(response.json()))
+        .then(data => {
+            setProductsList(data);
+            setFilteredProductsList(data);
+            }
+        );
+    },[])
+    
+    useEffect(()=>{
+        if(searchProductByCategory && !searchProductByTitle){            
+            productFilterByCategory()
+        }
+        
+        if(!searchProductByCategory && searchProductByTitle){
+            productFilter()
+        }
+        if(searchProductByCategory && searchProductByTitle){
+            productFilterByCategoryAndTitle()
+        }
+
+    },[searchProductByCategory,searchProductByTitle])
+
+
+    const productFilter = ()=>{
+        if(searchProductByTitle && searchProductByTitle.length>0){
+           
+           setFilteredProductsList(productsList.filter(
+            (product)=>product.title.toLowerCase().includes(searchProductByTitle.toLowerCase(searchProductByTitle)))
+            );
+           console.log(searchProductByTitle,"=>",filteredProductsList)
+        }
+    }
+    const productFilterByCategory = ()=>{
+        if(searchProductByCategory == "all"){
+            setFilteredProductsList(productsList);
+            return 0;
+        }
+        if( searchProductByCategory && searchProductByCategory.length>0){
+           setFilteredProductsList(
+                productsList.filter(
+                    (product) => product.category.name.toLowerCase().includes(searchProductByCategory.toLowerCase(searchProductByCategory)))
+                );
+            console.log(searchProductByCategory,"=>",filteredProductsList)
+        }
+    }
+
+    const productFilterByCategoryAndTitle = ()=>{
+
+        setFilteredProductsList(
+            productsList.filter(
+                (product) => 
+                product.category.name.toLowerCase().includes(searchProductByCategory.toLowerCase(searchProductByCategory))
+                && 
+                product.title.toLowerCase().includes(searchProductByTitle.toLowerCase(searchProductByTitle))
+                )
+            );
+
+            console.log(searchProductByCategory , searchProductByTitle)
+    }
+    
+    
+    
+  
     const productIds = products.map(item =>(item.id));
     
     const  addProduct = ( product=>{
         const index = productIds.indexOf(product.id);
-        console.log(index,"=>",product.id )
         const products2 = [... products];            
         if(index ==-1){
             products2.push(product);
         }else{
-            // products2.splice(index,1);
             console.log("product already exists, Removed")
         }
         setProducts(products2);
@@ -88,6 +160,14 @@ export const ProductsProvider = ({children})=>{
             ,deleteProduct
             ,orders
             ,setOrders
+            ,productsList
+            ,setProductsList
+            ,searchProductByTitle
+            ,setSearchProductByTitle
+            ,productFilter
+            ,filteredProductsList
+            ,setSearchProductByCategory,
+            productFilterByCategory
             }}>
             {children}
         </ProductsContext.Provider>

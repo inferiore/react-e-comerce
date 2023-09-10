@@ -5,8 +5,11 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 function Nav(){
     const classUnderline = "underline underline-offset-2";
-    const {products,openIsShoppingCartOpen} = useContext(ProductsContext);
-    
+    const {products,openIsShoppingCartOpen,setSearchProductByCategory,productFilterByCategory} = useContext(ProductsContext);
+    const handleFilterByCatgory = (category) =>{
+        setSearchProductByCategory(category)
+        
+    }
     return (
         <nav className="flex justify-between items-center top-0 fixed z-1 w-full py-1 px-5 text-sm font-light bg-white">
             <ul className="flex items-center gap-3">
@@ -14,34 +17,41 @@ function Nav(){
                     <NavLink to="/">Shopi</NavLink>
                 </li>
                 <li>
+                    
                     <NavLink to="/"
+                    onClick={()=>handleFilterByCatgory("all")}
                     className={({ isActive }) => isActive ? classUnderline : ""}
                     >All</NavLink>
                 </li>
                 <li>
                     <NavLink 
+                     onClick={()=>handleFilterByCatgory("clothes")}
                     className={({ isActive }) => isActive ? classUnderline : ""}
-                    to="/?clothes">Clothes</NavLink>
+                    to="/clothes">Clothes</NavLink>
                 </li>
                 <li>
                     <NavLink
+                     onClick={()=>handleFilterByCatgory("electronics")}
                     className={({ isActive }) => isActive ? classUnderline : ""} 
-                    to="/?electronics">Electronics</NavLink>
+                    to="/electronics">Electronics</NavLink>
                 </li>
                 <li>
                     <NavLink
+                     onClick={()=>handleFilterByCatgory("furniture")}
                     className={({ isActive }) => isActive ? classUnderline : ""}
-                    to="/?Furnitures">Furnitures</NavLink>
+                    to="/furnitures">Furnitures</NavLink>
                 </li>
                 <li>
                     <NavLink 
+                     onClick={()=>handleFilterByCatgory("toy")}
                     className={({ isActive }) => isActive ? classUnderline : ""}
                     to="/toys">Toys</NavLink>
                 </li>
                 <li>
                     <NavLink 
+                    onClick={()=>handleFilterByCatgory("others")}
                     className={({ isActive }) => isActive ? classUnderline : ""}
-                    to="/other">Other</NavLink>
+                    to="/others">Other</NavLink>
                 </li>                
             </ul>
             <ul className="flex gap-3 items-center">
